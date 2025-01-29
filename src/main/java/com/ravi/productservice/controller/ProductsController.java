@@ -48,6 +48,7 @@ public class ProductsController {
         restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(username, password));
 
         CouponDto coupon = restTemplate.getForObject(couponServiceUrl + product.getCouponCode(), CouponDto.class);
+        assert coupon != null;
         product.setPrice(product.getPrice().subtract(coupon.getDiscount()));
         return productRepository.save(product);
     }
